@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetConnect</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f3e5f5; }
+    header { background: #7e57c2; color: white; padding: 1rem; text-align: center; position: relative; }
+    header img.logo { width: 60px; position: absolute; left: 1rem; top: 1rem; }
+    nav { display: flex; justify-content: center; gap: 1rem; background: #ede7f6; padding: 0.5rem; }
+    nav button { padding: 0.5rem 1rem; border: none; background: #d1c4e9; cursor: pointer; border-radius: 5px; color: #4a148c; font-weight: bold; }
+    nav button.active { background: #7e57c2; color: white; }
+    .content { padding: 1rem; display: none; }
+    .content.active { display: block; }
+    .story { display: flex; gap: 1rem; overflow-x: auto; margin-bottom: 1rem; }
+    .story img { border-radius: 50%; width: 60px; height: 60px; border: 2px solid #7e57c2; }
+    .posts, .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+    .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; }
+    .card img { width: 100%; height: auto; }
+    .card .info { padding: 0.5rem; color: #4a148c; font-weight: bold; }
+    .details { display: none; position: fixed; top: 10%; left: 10%; width: 80%; background: white; border-radius: 10px; padding: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 10; }
+    .details img { width: 100%; border-radius: 8px; }
+    .details .close { float: right; cursor: pointer; color: #7e57c2; font-size: 1.5rem; font-weight: bold; }
+    #adoptButton { margin-top: 1rem; background: #7e57c2; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; }
+    form input, form select, form textarea {
+      width: 100%; padding: 0.5rem; margin-bottom: 1rem; border-radius: 5px; border: 1px solid #ccc;
+    }
+    form button {
+      background: #7e57c2; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img class="logo" src="logo_petconnect.png" alt="Logo PetConnect">
+    <h1>PetConnect</h1>
+    <p>Conecta con fundaciones y adopta con amor</p>
+  </header>
+
+  <nav>
+    <button onclick="showTab('historias')" class="active">Historias</button>
+    <button onclick="showTab('adopciones')">En Adopción</button>
+  </nav>
+
+  <section id="historias" class="content active">
+    <div class="story">
+      <img src="logo_patitas.png" alt="Fundación Patitas Felices">
+      <img src="logo_huellitas.png" alt="Fundación Huellitas">
+      <img src="logo_vidasalvadas.png" alt="Fundación Vida Salvadas">
+    </div>
+    <div class="posts">
+      <div class="card">
+        <img src="historia1.jpg" alt="Historia 1">
+        <div class="info"><strong>Patitas Felices:</strong> "¡Luna encontró una familia amorosa!"</div>
+      </div>
+      <div class="card">
+        <img src="historia2.jpg" alt="Historia 2">
+        <div class="info"><strong>Huellitas:</strong> "Rocky ya camina tras su operación."</div>
+      </div>
+      <div class="card">
+        <img src="historia3.jpg" alt="Historia 3">
+        <div class="info"><strong>Vida Salvadas:</strong> "Mila fue rescatada y hoy juega feliz."</div>
+      </div>
+      <div class="card">
+        <img src="historia4.jpg" alt="Historia 4">
+        <div class="info"><strong>Patitas Felices:</strong> "Toby superó el abandono y ahora sonríe."</div>
+      </div>
+      <div class="card">
+        <img src="historia5.jpg" alt="Historia 5">
+        <div class="info"><strong>Huellitas:</strong> "Nina fue adoptada por una familia maravillosa."</div>
+      </div>
+      <div class="card">
+        <img src="historia6.jpg" alt="Historia 6">
+        <div class="info"><strong>Vida Salvadas:</strong> "Max encontró su compañero ideal."</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="adopciones" class="content">
+    <div class="gallery">
+      <div class="card" onclick="showDetails('Luna', 'luna.jpg', '2 años, vacunada, juguetona. Fundación Patitas Felices')">
+        <img src="luna.jpg" alt="Luna">
+        <div class="info">Luna</div>
+      </div>
+      <div class="card" onclick="showDetails('Max', 'max.jpg', '1 año, sociable. Fundación Huellitas')">
+        <img src="max.jpg" alt="Max">
+        <div class="info">Max</div>
+      </div>
+      <div class="card" onclick="showDetails('Mila', 'mila.jpg', '3 años, tranquila, esterilizada. Fundación Vida Salvadas')">
+        <img src="mila.jpg" alt="Mila">
+        <div class="info">Mila</div>
+      </div>
+      <div class="card" onclick="showDetails('Toby', 'toby.jpg', '4 meses, curioso, ideal para departamentos. Fundación Patitas Felices')">
+        <img src="toby.jpg" alt="Toby">
+        <div class="info">Toby</div>
+      </div>
+      <div class="card" onclick="showDetails('Nina', 'nina.jpg', '6 meses, obediente, ideal para familias. Fundación Huellitas')">
+        <img src="nina.jpg" alt="Nina">
+        <div class="info">Nina</div>
+      </div>
+      <div class="card" onclick="showDetails('Simba', 'simba.jpg', '2 años, juguetón, esterilizado. Fundación Vida Salvadas')">
+        <img src="simba.jpg" alt="Simba">
+        <div class="info">Simba</div>
+      </div>
+      <div class="card" onclick="showDetails('Lola', 'lola.jpg', '1 año, cariñosa, ideal para niños. Fundación Huellitas')">
+        <img src="lola.jpg" alt="Lola">
+        <div class="info">Lola</div>
+      </div>
+      <div class="card" onclick="showDetails('Bruno', 'bruno.jpg', '3 años, guardián, leal. Fundación Patitas Felices')">
+        <img src="bruno.jpg" alt="Bruno">
+        <div class="info">Bruno</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="details" id="details">
+    <span class="close" onclick="closeDetails()">&times;</span>
+    <img id="detailsImage" src="" alt="Detalle de mascota" />
+    <h2 id="detailsName"></h2>
+    <p id="detailsInfo"></p>
+    <button id="adoptButton">Adoptar</button>
+  </div>
+
+  <section id="formulario-adopcion" class="content">
+    <h2>Formulario de Adopción</h2>
+    <form id="adopcionForm" onsubmit="enviarFormulario(event)">
+      <label for="nombre">Nombre completo:</label><br>
+      <input type="text" id="nombre" name="nombre" required><br>
+
+      <label for="email">Correo electrónico:</label><br>
+      <input type="email" id="email" name="email" required><br>
+
+      <label for="telefono">Teléfono:</label><br>
+      <input type="tel" id="telefono" name="telefono" required><br>
+
+      <label for="mascota">Nombre de la mascota que deseas adoptar:</label><br>
+      <input type="text" id="mascota" name="mascota" required><br>
+
+      <label for="casa">Casa de adopción (Fundación):</label><br>
+      <select id="casa" name="casa" required>
+        <option value="">Selecciona una</option>
+        <option value="Patitas Felices">Patitas Felices</option>
+        <option value="Huellitas">Huellitas</option>
+        <option value="Vida Salvadas">Vida Salvadas</option>
+      </select><br>
+
+      <label for="comentario">¿Por qué deseas adoptar?</label><br>
+      <textarea id="comentario" name="comentario" rows="4" required></textarea><br>
+
+      <button type="submit">Enviar Solicitud</button>
+    </form>
+  </section>
+
+  <script>
+    function showTab(tabId) {
+      document.querySelectorAll(".content").forEach(tab => tab.classList.remove("active"));
+      document.querySelectorAll("nav button").forEach(btn => btn.classList.remove("active"));
+      document.getElementById(tabId).classList.add("active");
+      event.target.classList.add("active");
+    }
+
+    function showDetails(name, image, info) {
+      document.getElementById("detailsName").innerText = name;
+      document.getElementById("detailsImage").src = image;
+      document.getElementById("detailsInfo").innerText = info;
+      document.getElementById("details").style.display = "block";
+
+      document.getElementById("adoptButton").onclick = () => {
+        closeDetails();
+        document.getElementById("mascota").value = name;
+        showTab('formulario-adopcion');
+      };
+    }
+
+    function closeDetails() {
+      document.getElementById("details").style.display = "none";
+    }
+
+    function enviarFormulario(event) {
+      event.preventDefault();
+      alert("¡Gracias por tu solicitud de adopción! Nos pondremos en contacto contigo pronto.");
+      document.getElementById("adopcionForm").reset();
+      showTab('historias');
+    }
+  </script>
+</body>
+</html>
